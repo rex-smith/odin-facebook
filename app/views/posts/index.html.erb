@@ -1,9 +1,21 @@
-<h1>Welcome, this is the home page</h1>  
-  
-<button type="button" 
-        class="btn btn-lg btn-danger" 
-        data-bs-toggle="popover" 
-        title="Popover title" 
-        data-bs-content="Amazing content, right ?">
-        Click to toggle popover
-</button>  
+<% @posts.each do |post| %>
+  <div class="container-sm">
+    <div class="card text-bg-primary mb-3">
+      <div class="card-header">
+          <%= post.title %>
+      </div>
+      <div class="card-body">
+          <%= post.body %>
+      </div>
+      <div class="card-text">
+        -- <%= post.user.name %>
+      </div>
+      <% post.comments.each do |comment| %>
+          <div class="card text-bg-primary mb-3">
+            <div class="card-body"><%= comment.body %></div>
+            <div class="card-text">-- <%= comment.user.name %></div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
