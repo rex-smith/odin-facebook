@@ -8,8 +8,10 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
 
   has_many :requests, dependent: :destroy
-  has_many :frienders, through: :requests, foreign_key: :friendee_id
-  has_many :friendees, through: :requests, foreign_key: :friender_id
+  has_many :requested_friends, through: :requests
+
+  has_many :invitations
+  has_many :frienders, through: :requests
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy

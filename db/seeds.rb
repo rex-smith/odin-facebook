@@ -10,12 +10,13 @@
 
 ActiveRecord::Base.transaction do
   Request.destroy_all
+  Invitation.destroy_all
   Friendship.destroy_all
   Like.destroy_all
   Post.destroy_all
   Comment.destroy_all
   User.destroy_all
-  
+
   # CREATING USERS AND POSTS
 
   10.times do |index|
