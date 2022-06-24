@@ -6,17 +6,18 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+@users = []
 
 ActiveRecord::Base.transaction do
-  User.destroy_all
   Request.destroy_all
   Friendship.destroy_all
+  Like.destroy_all
   Post.destroy_all
   Comment.destroy_all
-  Like.destroy_all
-
+  User.destroy_all
+  
   # CREATING USERS AND POSTS
-  @users = []
+
   10.times do |index|
     name = "#{Faker::Name.name}"
     email = "#{Faker::Internet.email}"
@@ -42,8 +43,8 @@ ActiveRecord::Base.transaction do
     @users << user
 
     5.times do |index|
-      title = "#{Faker::Lorem.word}".capitalize
-      body = "#{Faker::Lorem.paragraph}"
+      title = "#{Faker::Games::Fallout.quote}".capitalize
+      body = "#{Faker::GreekPhilosophers.quote}"
       date = Faker::Date.between(from: 30.days.ago, to: Date.today)
       Post.create!(
         title: title,
@@ -61,7 +62,7 @@ ActiveRecord::Base.transaction do
     5.times do |index|
       user = @users[rand(@users.length)]
       date = Faker::Date.between(from: 30.days.ago, to: Date.today)
-      body = "#{Faker::Lorem.sentence}"
+      body = "#{Faker::Books::Dune.quote}"
       Comment.create!(
         body: body,
         user: user,
