@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "Event was successfully updated." }
+        format.html { redirect_to user_url(@user), notice: "Profile was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :name, :birthdate, :gender, :address, :phonenumber)
+    params.require(:user).permit(:email, :password, :first_name, :last_name, :birthdate, :gender, :address, :phone_number)
   end
 
 end

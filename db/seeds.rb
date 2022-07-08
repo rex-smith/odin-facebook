@@ -20,23 +20,25 @@ ActiveRecord::Base.transaction do
   # CREATING USERS AND POSTS
 
   10.times do |index|
-    name = "#{Faker::Name.name}"
+    first_name = "#{Faker::Name.first_name}"
+    last_name = "#{Faker::Name.last_name}"
     email = "#{Faker::Internet.email}"
     password = ENV['SEED_USER_PASSWORD'] # Gives access to each user
     birthdate = "#{Faker::Date.between(from: 40.years.ago, to: 10.years.ago)}"
     gender = "#{Faker::Gender.binary_type}"
     address = "#{Faker::Address.full_address}"
-    phonenumber = "#{Faker::PhoneNumber.cell_phone}"
+    phone_number = "#{Faker::PhoneNumber.cell_phone}"
     date = Faker::Date.between(from: 30.days.ago, to: Date.today)
 
     user = User.create!(
-      name: name,
+      first_name: first_name,
+      last_name: last_name,
       email: email,
       password: password,
       birthdate: birthdate,
       gender: gender,
       address: address,
-      phonenumber: phonenumber,
+      phone_number: phone_number,
       created_at: date,
       updated_at: date
     )
@@ -44,7 +46,7 @@ ActiveRecord::Base.transaction do
     @users << user
 
     5.times do |index|
-      title = "#{Faker::Games::Fallout.quote}".capitalize
+      title = "#{Faker::Fantasy::Tolkien.poem}".capitalize
       body = "#{Faker::GreekPhilosophers.quote}"
       date = Faker::Date.between(from: 30.days.ago, to: Date.today)
       Post.create!(

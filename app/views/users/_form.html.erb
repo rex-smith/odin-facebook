@@ -1,0 +1,34 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <h1>Profile Information</h1>
+    <%= form_with model: @user do |form| %>
+      <div class="mb-3">
+        <%= form.label :first_name, "First Name", class: 'form-label' %>
+        <%= form.text_field :first_name, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :last_name, "Last Name", class: 'form-label' %>
+        <%= form.text_field :last_name, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :email, "Email", class: 'form-label' %>
+        <%= form.email_field :email, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :birthdate, "Birthdate", class: 'form-label' %>
+        <%= form.date_field :birthdate, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :gender, "Gender", class: 'form-label' %>
+        <%= form.select :gender, ["Male", "Female", "Other"], class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :phone_number, "Phone Number", class: 'form-label' %>
+        <%= form.telephone_field :phone_number, class: 'form-control' %>
+      </div>
+      <div class="mb-3">
+        <%= form.submit "Update", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
