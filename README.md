@@ -1,24 +1,11 @@
-# README
+# ODIN FACEBOOK
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is part of The Odin Project curriculum as the final Ruby on Rails project.
 
-Things you may want to cover:
+The goal of the application is to function similarly to Facebook where users can:
+- Create posts and comments
+- Like other users' posts and comments
+- Send friend requests to other users
+- Accept friend request from other users
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Ruby version 3.0.3
