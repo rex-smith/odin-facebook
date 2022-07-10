@@ -3,11 +3,12 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   has_many :likes, as: :likeable
 
-  def liked?
-    if likes.user_id.include?(current_user.id)
-      return true
-    else
-      return false
+  def liked?(user)
+    likes.each do |like|
+      if like.user_id == user.id
+        return true
+      end
     end
+    return false
   end
 end

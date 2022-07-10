@@ -1,47 +1,52 @@
-<h1>New Post</h1>
-<%= render 'post' %>
-<h1>Your Feed</h1>
-<% @posts.each do |post| %>
-  <div class="container-sm">
-    <div class="card text-bg-primary mb-3">
-      <div class="card-header">
-          <h4><%= post.title %></h4>
-      </div>
-      <div class="card-body px-3">
-          <%= post.body %>
-      </div>
-      <div class="card-text mb-3 px-3">
-        <strong>-- <%= post.user.full_name %></strong>
-      </div>
-      <% if post.liked? %>
-        <div class="dislike">
-          <i class="bi bi-hand-thumbs-down"></i>
-          <%= button_to 'Remove Like', like_path(post), method: :delete, class: 'btn btn-danger' %>
-        </div>
-      <% else %>
-        <div class="like">
-          <i class="bi bi-hand-thumbs-up"></i>
-          <%= button_to 'Like', likes_path(post), class: 'btn btn-primary' %>
-        </div>
-      <% end %>
-      <div class="like"><%= post.likes.count %> likes</div>
-      <% post.comments.each do |comment| %>
-          <div class="card text-bg-primary ms-3 mb-3 p-3">
-            <div class="card-body"><%= comment.body %></div>
-            <div class="card-text"><strong>-- <%= comment.user.full_name %></strong></div>
-            <% if comment.liked? %>
-              <div class="dislike">
-                <i class="bi bi-hand-thumbs-down"></i>
-                <%= button_to 'Remove Like', like_path(comment), method: :delete, class: 'btn btn-danger' %>
-              </div>
-            <% else %>
-              <div class="like">
-                <i class="bi bi-hand-thumbs-up"></i>
-                <%= button_to 'Like', likes_path(comment), class: 'btn btn-primary' %>
-              </div>
-            <% end %>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <h1>New Post</h1>
+    <%= render 'post' %>
+    <h1>Your Feed</h1>
+    <% @posts.each do |post| %>
+      <div class="container-sm">
+        <div class="card text-bg-primary mb-3">
+          <div class="card-header">
+              <h4><%= post.title %></h4>
           </div>
-      <% end %>
-    </div>
+          <div class="card-body px-3">
+              <%= post.body %>
+          </div>
+          <div class="card-text mb-3 px-3">
+            <strong>-- <%= post.user.full_name %></strong>
+          </div>
+          <div class="d-flex px-3 align-items-center mb-3">
+            <% if post.liked?(current_user) %>
+                <%= button_to like_path(post), method: :delete, class: 'btn btn-danger' do %>
+                  <i class="bi bi-hand-thumbs-down"></i>
+                <% end %>
+            <% else %>
+              <%= button_to likes_path(post), class: 'btn btn-primary' do %>
+                <i class="bi bi-hand-thumbs-up"></i>
+              <% end %>
+            <% end %>
+            <div class="mx-3"><%= post.likes.count %> likes</div>
+          </div>
+          <% post.comments.each do |comment| %>
+              <div class="card text-bg-primary mx-3 mb-3 p-3">
+                <div class="card-body"><%= comment.body %></div>
+                <div class="card-text mx-3 mb-3"><strong>-- <%= comment.user.full_name %></strong></div>
+                  <div class="d-flex px-3 align-items-center">
+                    <% if post.liked?(current_user) %>
+                        <%= button_to like_path(comment), method: :delete, class: 'btn btn-danger' do %>
+                          <i class="bi bi-hand-thumbs-down"></i>
+                        <% end %>
+                    <% else %>
+                      <%= button_to likes_path(comment), class: 'btn btn-primary' do %>
+                        <i class="bi bi-hand-thumbs-up"></i>
+                      <% end %>
+                    <% end %>
+                    <div class="mx-3"><%= comment.likes.count %> likes</div>
+                  </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
