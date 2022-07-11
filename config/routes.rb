@@ -12,9 +12,7 @@ Rails.application.routes.draw do
     resources :requests, only: [:index, :create, :destroy]
   end
 
-  resources :posts do
-    resources :comments, only: [:index, :create, :destroy]
-  end
+  resources :comments, only: [:new, :create, :destroy]
 
   resources :posts, except: [:edit, :update]
   resources :likes, only: [:create, :destroy] 

@@ -1,0 +1,30 @@
+<div class="container-sm">
+  <div class="card text-bg-primary mb-3">
+    <div class="card-header">
+      <h4><%= @post.title %><small class="text-muted">  <%= @post.created_at.strftime("%l:%M%p %b %e, %Y") %></small></h4>
+    </div>
+    <div class="card-body px-3">
+      <%= @post.body %>
+    </div>
+    <div class="card-text mb-3 px-3">
+      <strong>-- <%= @post.user.full_name %></strong>
+    </div>
+    <div class="d-flex px-3 align-items-center mb-3">
+      <% like = @post.likes.find { |like| like.user_id == current_user.id } %>
+      <% if like %>
+          <%= button_to like_path(like), method: :delete, class: 'btn btn-danger' do %>
+            <i class="bi bi-hand-thumbs-down"></i>
+          <% end %>
+      <% else %>
+        <%= button_to likes_path(@post), params: { like: {user_id: current_user.id, likeable_id: @post.id, likeable_type: "Post"} }, class: 'btn btn-primary' do %>
+          <i class="bi bi-hand-thumbs-up"></i>
+        <% end %>
+      <% end %>
+      <div class="mx-3"><%= @post.likes.count %> likes</div>
+    </div>
+    <% @post.comments.each do |comment| %>
+      <%= render comment, comment: comment %>
+    <% end %>
+    <div class="mx-3"><%= render 'comments/form', comment: @post.comments.build %></div>
+  </div>
+</div>

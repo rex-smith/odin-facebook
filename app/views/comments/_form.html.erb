@@ -1,0 +1,12 @@
+<%= form_with(model: comment) do |form| %>
+  <%= form.hidden_field :commentable_id, value: comment.commentable_id %>
+  <%= form.hidden_field :commentable_type, value: comment.commentable_type %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <div class="mb-3">
+    <%# <%= form.label :body, 'Comment', class: 'form-label' %>
+    <%= form.text_area :body, size: '70x2', class: 'form-control bg-light', placeholder: "Write your comment here..." %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit 'Comment', class: 'btn btn-primary' %>
+  </div>
+<% end %>
