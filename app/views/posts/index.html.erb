@@ -1,11 +1,13 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <h2>New Post</h2>
-    <%= render 'form' %>
+    <%= turbo_frame_tag id="new_post", src:new_post_path %>
     <h2>Your Feed</h2>
-    <% 10.times do |i| %>
-      <% @post = @posts[i] %>
-      <%= render @post %>
-    <% end %>
+    <div id="posts">
+      <% 10.times do |i| %>
+        <% @post = @posts[i] %>
+        <%= render @post %>
+      <% end %>
+    </div>
   </div>
 </div>

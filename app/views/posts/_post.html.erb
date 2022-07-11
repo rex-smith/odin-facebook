@@ -22,9 +22,11 @@
       <% end %>
       <div class="mx-3"><%= @post.likes.count %> likes</div>
     </div>
-    <% @post.comments.each do |comment| %>
-      <%= render comment, comment: comment %>
-    <% end %>
-    <div class="mx-3"><%= render 'comments/form', comment: @post.comments.build %></div>
+    <div id="comments">
+      <% @post.comments.each do |comment| %>
+        <%= render comment, comment: comment %>
+      <% end %> 
+      <div class="mx-3"><%= render 'comments/form', comment: @post.comments.build %></div>
+    </div>
   </div>
 </div>
