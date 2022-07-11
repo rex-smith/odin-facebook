@@ -11,4 +11,8 @@ class Post < ApplicationRecord
     end
     return false
   end
+
+  def find_like(user)
+    return Like.where(user_id: user.id, likeable_id: self.id, likeable_tyle: "Post")
+  end
 end

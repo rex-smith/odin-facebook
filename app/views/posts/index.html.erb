@@ -1,27 +1,29 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <h1>New Post</h1>
-    <%= render 'post' %>
+    <%= render 'form' %>
     <h1>Your Feed</h1>
-    <% @posts.each do |post| %>
+    <% 10.times do |i| %>
+      <% post = @posts[i] %>
       <div class="container-sm">
         <div class="card text-bg-primary mb-3">
           <div class="card-header">
-              <h4><%= post.title %></h4>
+            <h4><%= post.title %></h4>
           </div>
           <div class="card-body px-3">
-              <%= post.body %>
+            <%= post.body %>
           </div>
           <div class="card-text mb-3 px-3">
             <strong>-- <%= post.user.full_name %></strong>
           </div>
           <div class="d-flex px-3 align-items-center mb-3">
-            <% if post.liked?(current_user) %>
-                <%= button_to like_path(post), method: :delete, class: 'btn btn-danger' do %>
+            <% like = post.likes.find { |like| like.user_id == current_user.id } %>
+            <% if like %>
+                <%= button_to like_path(like), method: :delete, class: 'btn btn-danger' do %>
                   <i class="bi bi-hand-thumbs-down"></i>
                 <% end %>
             <% else %>
-              <%= button_to likes_path(post), class: 'btn btn-primary' do %>
+              <%= button_to likes_path(post), params: { like: {user_id: current_user.id, likeable_id: post.id, likeable_type: "Post"} }, class: 'btn btn-primary' do %>
                 <i class="bi bi-hand-thumbs-up"></i>
               <% end %>
             <% end %>
@@ -32,12 +34,13 @@
                 <div class="card-body"><%= comment.body %></div>
                 <div class="card-text mx-3 mb-3"><strong>-- <%= comment.user.full_name %></strong></div>
                   <div class="d-flex px-3 align-items-center">
-                    <% if post.liked?(current_user) %>
-                        <%= button_to like_path(comment), method: :delete, class: 'btn btn-danger' do %>
+                    <% like = comment.likes.find { |like| like.user_id == current_user.id } %>
+                    <% if like %>
+                        <%= button_to like_path(like), method: :delete, class: 'btn btn-danger' do %>
                           <i class="bi bi-hand-thumbs-down"></i>
                         <% end %>
                     <% else %>
-                      <%= button_to likes_path(comment), class: 'btn btn-primary' do %>
+                      <%= button_to likes_path(comment), params: { like: {user_id: current_user.id, likeable_id: comment.id, likeable_type: "Comment"}}, class: 'btn btn-primary' do %>
                         <i class="bi bi-hand-thumbs-up"></i>
                       <% end %>
                     <% end %>
