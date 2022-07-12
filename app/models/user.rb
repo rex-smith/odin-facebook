@@ -20,4 +20,13 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthdate.year - ((now.month > birthdate.month || (now.month == birthdate.month && now.day >= birthdate.day)) ? 0 : 1)
+  end
+
+  def not_friends
+    User.all.select { |user| self.friends.exclude?(user) && user != self }
+  end
 end

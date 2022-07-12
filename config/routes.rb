@@ -17,5 +17,7 @@ Rails.application.routes.draw do
   resources :posts, except: [:edit, :update]
   resources :likes, only: [:create, :destroy] 
   resources :friendships, only: [:index]
+
+  get 'people/:id', to: 'users#people', as: 'people'
   
 end

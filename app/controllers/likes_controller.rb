@@ -3,10 +3,10 @@ class LikesController < ApplicationController
     @like = current_user.likes.build(like_params)
 
     if @like.save
-      flash[:success] = "Like successfully created."
+      flash[:notice] = "Like successfully created."
       redirect_to root_path
     else
-      flash[:error] = 'Something went wrong.'
+      flash[:alert] = 'Something went wrong.'
       render :new
     end
   end
@@ -14,10 +14,10 @@ class LikesController < ApplicationController
   def destroy
     @like = Like.find(params[:id])
     if @like.destroy
-      flash[:success] = 'Like successfully removed.'
+      flash[:notice] = 'Like successfully removed.'
       redirect_to root_path
     else
-      flash[:error] = 'Something went wrong.'
+      flash[:alert] = 'Something went wrong.'
       redirect_to root_path
     end
   end

@@ -19,10 +19,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        flash[:success] = "Post successfully created."
+        # flash[:notice] = "Post successfully created."
         format.turbo_stream
       else
-        flash[:error] = 'Something went wrong.'
+        flash[:alert] = 'Something went wrong.'
         render :new
       end
     end
@@ -35,10 +35,10 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      flash[:success] = 'Post successfully removed.'
+      flash[:notice] = 'Post successfully removed.'
       redirect_to posts_url
     else
-      flash[:error] = 'Something went wrong.'
+      flash[:alert] = 'Something went wrong.'
       redirect_to posts_url
     end
   end
