@@ -10,7 +10,7 @@
     <% end %>
     <h2 class="bg-primary text-white rounded p-1">Friend Requests Received</h2>
     <% if @user.requesting_friends.any? %>
-      <% @user.requesting_friend.each do |requesting_friend| %>
+      <% @user.requesting_friends.each do |requesting_friend| %>
         <%= render 'person', person: requesting_friend %>
       <% end %>
     <% else %>

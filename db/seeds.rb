@@ -10,7 +10,6 @@
 
 ActiveRecord::Base.transaction do
   Request.destroy_all
-  Invitation.destroy_all
   Friendship.destroy_all
   Like.destroy_all
   Post.destroy_all
@@ -58,6 +57,30 @@ ActiveRecord::Base.transaction do
       )
     end
   end
+
+  # CREATING FRIENDSHIPS AND REQUESTS
+
+  # User.all.each do |user|
+  #   date = Faker::Date.between(from: 30.days.ago, to: Date.today)
+  #   until user.friends.reload.size >= 5 do
+  #     friend = user.not_friends_or_pending[rand(user.not_friends_or_pending.size)]
+  #     Friendship.create!(
+  #       user: user,
+  #       friend: friend,
+  #       created_at: date,
+  #       updated_at: date
+  #     )
+  #   end
+  #   2.times do |j|
+  #     potential_friend = user.not_friends_or_pending[rand(user.not_friends_or_pending.size)]
+  #     Request.create!(
+  #       user: user,
+  #       requested_friend: potential_friend,
+  #       created_at: date,
+  #       updated_at: date
+  #     )
+  #   end
+  # end
 
   # CREATING COMMENTS AND LIKES
 

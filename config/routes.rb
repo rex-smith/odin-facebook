@@ -11,11 +11,9 @@ Rails.application.routes.draw do
     resources :posts, only: [:index]
     resources :friendships, only: [:index, :create, :destroy]
     resources :requests, only: [:index, :create, :destroy]
-    resources :invitations, only: [:index, :create, :destroy]
   end
 
   resources :comments, only: [:new, :create, :destroy]
-
   resources :posts, except: [:edit, :update]
   resources :likes, only: [:create, :destroy] 
 
