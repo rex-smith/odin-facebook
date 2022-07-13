@@ -11,6 +11,17 @@ class RequestsController < ApplicationController
     end
   end
 
+  def destroy
+    @request = Request.find(params[:id])
+    if @request.destroy
+      flash[:notice] = 'Request successfully deleted.'
+      redirect_to people_path
+    else
+      flash[:alert] = 'Something went wrong.'
+      redirect_to people_path
+    end
+  end
+
   private
 
   def request_params

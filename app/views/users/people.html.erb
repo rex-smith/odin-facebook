@@ -1,33 +1,33 @@
 <div class="row justify-content-center">
   <div class="col-8">
-    <h2>Friends</h2>
+    <h2 class="bg-primary text-white rounded p-1">Friends</h2>
     <% if @user.friends.any? %>
       <% @user.friends.each do |friend| %>
-        <%= render 'person', person: friend, type: "friend" %>
+        <%= render 'person', person: friend %>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
-    <h2>Friend Requests Received</h2>
-    <% if @user.frienders.any? %>
-      <% @user.frienders.each do |friender| %>
-        <%= render 'person', person: friender, type: "invitation" %>
+    <h2 class="bg-primary text-white rounded p-1">Friend Requests Received</h2>
+    <% if @user.requesting_friends.any? %>
+      <% @user.requesting_friend.each do |requesting_friend| %>
+        <%= render 'person', person: requesting_friend %>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
-    <h2>Friend Requests Sent</h2>
+    <h2 class="bg-primary text-white rounded p-1">Friend Requests Sent</h2>
     <% if @user.requested_friends.any? %>
       <% @user.requested_friends.each do |requested_friend| %>
-        <%= render 'person', person: requested_friend, type: "request" %>
+        <%= render 'person', person: requested_friend %>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
-    <h2>Other People</h2>
+    <h2 class="bg-primary text-white rounded p-1">Other People</h2>
     <% if @user.not_friends_or_pending.any? %>
       <% @user.not_friends_or_pending.each do |person| %>
-        <%= render 'person', person: person, type: "not-friend" %>
+        <%= render 'person', person: person %>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>

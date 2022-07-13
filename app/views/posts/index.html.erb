@@ -2,10 +2,14 @@
   <div class="col-8">
     <h2>New Post</h2>
     <%= turbo_frame_tag id="new_post", src:new_post_path %>
-    <h2>Your Feed</h2>
+    <% if current_user.id.to_s == params[:user_id] %>
+      <h2>Your Posts</h2>
+    <% else %>
+      <h2>Your Feed</h2>
+    <% end %>
     <div id="posts">
-      <% 10.times do |i| %>
-        <% @post = @posts[i] %>
+      <% @posts.each do |post| %>
+        <% @post = post %>
         <%= render @post %>
       <% end %>
     </div>

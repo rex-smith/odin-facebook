@@ -10,9 +10,6 @@ class User < ApplicationRecord
   has_many :requests, dependent: :destroy
   has_many :requested_friends, through: :requests
 
-  has_many :invitations
-  has_many :frienders, through: :invitations
-
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -30,8 +27,12 @@ class User < ApplicationRecord
     User.all.select { |user| friends.exclude?(user)  && user != self }
   end
 
+  def requesting_friends
+    User.all.select { |user| user.requested_friends.include?(self) }
+  end
+
   def not_friends_or_pending
-    User.all.select{ |user| friends.exclude?(user) && user != self && requested_friends.exclude?(user) && frienders.exclude?(user)}
+    User.all.select{ |user| friends.exclude?(user) && user != self && requested_friends.exclude?(user) && requesting_friends.exclude?(user)}
   end
 
   def friend?(user)
@@ -42,7 +43,14 @@ class User < ApplicationRecord
     requested_friends.include?(user)
   end
 
-  def inviter?(user)
-    inviters.include?(user)
+  # Way to see who has requested the user much like they can see who they have requested
+
+  def requesting_friend?(user)
+    user.requested_friends.include?(self)
   end
+
+  def not_friend_or_pending?(user)
+    !friend?(user) && !requested_friend?(user) && !requesting_friend?(user)
+  end
+
 end

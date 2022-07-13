@@ -4,9 +4,11 @@ class PostsController < ApplicationController
   def index
     @post = Post.new
     if params[:user_id]
-      @posts = User.find_by_id(params[:user_id]).posts
+      @posts = User.find_by_id(params[:user_id]).posts.order('created_at DESC')
     else
-      @posts = Post.all.order('created_at DESC')
+      # Filter to only see friends' posts
+      @posts = []
+      current_user.friends.each { |friend| friend.posts.order('created_at DESC').each { |post| @posts << post } }
     end
   end
 
