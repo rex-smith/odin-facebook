@@ -33,4 +33,16 @@ class User < ApplicationRecord
   def not_friends_or_pending
     User.all.select{ |user| friends.exclude?(user) && user != self && requested_friends.exclude?(user) && frienders.exclude?(user)}
   end
+
+  def friend?(user)
+    friends.include?(user)
+  end
+
+  def requested_friend?(user)
+    requested_friends.include?(user)
+  end
+
+  def inviter?(user)
+    inviters.include?(user)
+  end
 end

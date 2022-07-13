@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
   root "posts#index"
+
+  get '/profile/:id', to: 'users#show', as: :profile
+
   resources :users, except: [:new, :create]
 
   resources :users do 
