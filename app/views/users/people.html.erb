@@ -1,32 +1,36 @@
-<h2>Friends</h2>
-<% if @user.friends.any? %>
-  <% @user.friends.each do |friend| %>
-    <%= render 'person', person: person, type: "friend" %>
-  <% end %>
-<% else %>
-  <p class="subtitle">None</p>
-<% end %>
-<h2>Friend Requests Received</h2>
-<% if @user.invitations.any? %>
-  <% @user.invitations.each do |invitation| %>
-    <%= render 'person', person: person, type: "invitation" %>
-  <% end %>
-<% else %>
-  <p class="subtitle">None</p>
-<% end %>
-<h2>Friend Requests Sent</h2>
-<% if @user.requests.any? %>
-  <% @user.requests.each do |request| %>
-    <%= render 'person', person: person, type: "request" %>
-  <% end %>
-<% else %>
-  <p class="subtitle">None</p>
-<% end %>
-<h2>Other People</h2>
-<% if @user.not_friends.any? %>
-  <% @user.not_friends.each do |person| %>
-    <%= render 'person', person: person, type: "not-friend" %>
-  <% end %>
-<% else %>
-  <p class="subtitle">None</p>
-<% end %>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <h2>Friends</h2>
+    <% if @user.friends.any? %>
+      <% @user.friends.each do |friend| %>
+        <%= render 'person', person: friend, type: "friend" %>
+      <% end %>
+    <% else %>
+      <p class="subtitle">None</p>
+    <% end %>
+    <h2>Friend Requests Received</h2>
+    <% if @user.frienders.any? %>
+      <% @user.frienders.each do |friender| %>
+        <%= render 'person', person: friender, type: "invitation" %>
+      <% end %>
+    <% else %>
+      <p class="subtitle">None</p>
+    <% end %>
+    <h2>Friend Requests Sent</h2>
+    <% if @user.requested_friends.any? %>
+      <% @user.requested_friends.each do |requested_friend| %>
+        <%= render 'person', person: requested_friend, type: "request" %>
+      <% end %>
+    <% else %>
+      <p class="subtitle">None</p>
+    <% end %>
+    <h2>Other People</h2>
+    <% if @user.not_friends_or_pending.any? %>
+      <% @user.not_friends_or_pending.each do |person| %>
+        <%= render 'person', person: person, type: "not-friend" %>
+      <% end %>
+    <% else %>
+      <p class="subtitle">None</p>
+    <% end %>
+  </div>
+</div>

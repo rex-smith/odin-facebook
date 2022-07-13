@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :requested_friends, through: :requests
 
   has_many :invitations
-  has_many :frienders, through: :requests
+  has_many :frienders, through: :invitations
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -27,6 +27,10 @@ class User < ApplicationRecord
   end
 
   def not_friends
-    User.all.select { |user| self.friends.exclude?(user) && user != self }
+    User.all.select { |user| friends.exclude?(user)  && user != self }
+  end
+
+  def not_friends_or_pending
+    User.all.select{ |user| friends.exclude?(user) && user != self && requested_friends.exclude?(user) && frienders.exclude?(user)}
   end
 end
