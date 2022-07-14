@@ -1,21 +1,5 @@
-<div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
-  <div class="p-2">
-    <div class="h4 text-primary"><%= link_to person.full_name, user_path(person), class: "text-decoration-none" %></div>
-    <div class="h6 text-muted"><%= person.gender %></div>
-    <div class="h6 text-muted"><%= person.age %></div>
-  </div>
-  <div class="mx-3">
-    <% if current_user.requesting_friend?(person) %>
-      <% @request = current_user.requests.select { |request| request.requesting_friend.id == person.id } %>
-      <%= button_to 'Accept', user_friendships_path(person), class: 'btn btn-success' %>
-      <%= button_to 'Decline', user_request_path(user_id: person.id, id: @request.id), method: :delete, class: 'btn btn-danger' %>
-    <% elsif current_user.requested_friend?(person) %>
-      <%= button_to 'Delete Request', user_request_path(current_user, person), method: :delete, class: 'btn btn-danger' %>
-    <% elsif current_user.not_friend_or_pending?(person) %>
-      <%= button_to '+ Add Friend', user_requests_path(current_user.id), method: :post, params: { request: { requested_friend_id: person.id } }, class: 'btn btn-primary text-white' %>
-    <% else %>
-      <% @friendship = current_user.friendships.select { |friendship| friendship.friend_id = person.id } %>
-      <%= button_to 'Remove Friend', user_friendship_path(current_user.id, @friendship), method: :delete, class: 'btn btn-danger' %>
-    <% end %>
-  </div>
+<div class="p-2">
+  <div class="h4 text-primary"><%= link_to person.full_name, user_path(person), class: "text-decoration-none" %></div>
+  <div class="h6 text-muted"><%= person.gender %></div>
+  <div class="h6 text-muted"><%= person.age %></div>
 </div>

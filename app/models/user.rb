@@ -43,7 +43,9 @@ class User < ApplicationRecord
     requested_friends.include?(user)
   end
 
-  # Way to see who has requested the user much like they can see who they have requested
+  def inbound_requests
+    Request.all.select { |request| request.requested_friend_id == self.id }
+  end
 
   def requesting_friend?(user)
     user.requested_friends.include?(self)
@@ -51,6 +53,10 @@ class User < ApplicationRecord
 
   def not_friend_or_pending?(user)
     !friend?(user) && !requested_friend?(user) && !requesting_friend?(user)
+  end
+
+  def find_friendship(user)
+    
   end
 
 end

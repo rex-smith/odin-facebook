@@ -1,36 +1,63 @@
 <div class="row justify-content-center">
   <div class="col-8">
+
     <h2 class="bg-primary text-white rounded p-1">Friends</h2>
-    <% if @user.friends.any? %>
-      <% @user.friends.each do |friend| %>
-        <%= render 'person', person: friend %>
+      <% if @user.friendships.any? %>
+        <% @user.friendships.each do |friendship| %>
+          <div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
+            <%= render 'person', person: User.find(friendship.friend_id) %>
+            <div class="mx-3">
+              <%= button_to 'Remove Friend', friendship_path(friendship), method: :delete, class: 'btn btn-danger' %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="subtitle">None</p>
       <% end %>
-    <% else %>
-      <p class="subtitle">None</p>
-    <% end %>
+    
+
     <h2 class="bg-primary text-white rounded p-1">Friend Requests Received</h2>
-    <% if @user.requesting_friends.any? %>
-      <% @user.requesting_friends.each do |requesting_friend| %>
-        <%= render 'person', person: requesting_friend %>
+    <% if @user.inbound_requests.any? %>
+      <% @user.inbound_requests.each do |inbound_request| %>
+        <div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
+          <%= render 'person', person: User.find(inbound_request.user_id) %>
+          <div class="mx-3">
+            <%= button_to 'Accept', confirm_request_path(inbound_request), method: :post, class: 'btn btn-success mb-1' %> 
+            <%= button_to 'Decline', delete_request_path(inbound_request), method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
+    
     <h2 class="bg-primary text-white rounded p-1">Friend Requests Sent</h2>
-    <% if @user.requested_friends.any? %>
-      <% @user.requested_friends.each do |requested_friend| %>
-        <%= render 'person', person: requested_friend %>
+    <% if @user.requests.any? %>
+      <% @user.requests.each do |request| %>
+        <div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
+          <%= render 'person', person: User.find(request.requested_friend_id) %>
+          <div class="mx-3">
+            <%= button_to 'Delete Request', delete_request_path(request), method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
+
     <h2 class="bg-primary text-white rounded p-1">Other People</h2>
     <% if @user.not_friends_or_pending.any? %>
       <% @user.not_friends_or_pending.each do |person| %>
+      <div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
         <%= render 'person', person: person %>
+        <div class="mx-3">
+          <%= button_to '+ Add Friend', requests_path(request: { requested_friend_id: person.id }), method: :post, class: 'btn btn-primary text-white' %>
+        </div>
+      </div>
       <% end %>
     <% else %>
       <p class="subtitle">None</p>
     <% end %>
+
   </div>
 </div>

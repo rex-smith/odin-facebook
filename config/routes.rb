@@ -9,13 +9,18 @@ Rails.application.routes.draw do
 
   resources :users do 
     resources :posts, only: [:index]
-    resources :friendships, only: [:index, :create, :destroy]
-    resources :requests, only: [:index, :create, :destroy]
   end
 
   resources :comments, only: [:new, :create, :destroy]
   resources :posts, except: [:edit, :update]
   resources :likes, only: [:create, :destroy] 
+  resources :friendships, only: [:index, :create, :destroy]
+  resources :requests, only: :create do
+    member do
+      post 'confirm'
+      delete 'delete'
+    end
+  end
 
   get 'people', to: 'users#people', as: 'people'
   
