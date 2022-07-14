@@ -60,27 +60,39 @@ ActiveRecord::Base.transaction do
 
   # CREATING FRIENDSHIPS AND REQUESTS
 
-  # User.all.each do |user|
-  #   date = Faker::Date.between(from: 30.days.ago, to: Date.today)
-  #   until user.friends.reload.size >= 5 do
-  #     friend = user.not_friends_or_pending[rand(user.not_friends_or_pending.size)]
-  #     Friendship.create!(
-  #       user: user,
-  #       friend: friend,
-  #       created_at: date,
-  #       updated_at: date
-  #     )
-  #   end
-  #   2.times do |j|
-  #     potential_friend = user.not_friends_or_pending[rand(user.not_friends_or_pending.size)]
-  #     Request.create!(
-  #       user: user,
-  #       requested_friend: potential_friend,
-  #       created_at: date,
-  #       updated_at: date
-  #     )
-  #   end
-  # end
+  User.all.each do |user|
+    date = Faker::Date.between(from: 30.days.ago, to: Date.today)
+    until user.friends.reload.size >= 4 do
+      random_number = rand(user.not_friends_or_pending.size)
+      friend = user.not_friends_or_pending[random_number]
+      Friendship.create!(
+        user: user,
+        friend: friend,
+        created_at: date,
+        updated_at: date
+      )
+      Friendship.create!(
+        user: friend,
+        friend: user,
+        created_at: date,
+        updated_at: date
+      )
+    end
+  end
+
+  User.all.each do |user|
+    until user.not_friends_or_pending.size <= 2 do
+      date = Faker::Date.between(from: 30.days.ago, to: Date.today)
+      random_number = rand(user.not_friends_or_pending.size)
+      potential_friend = user.not_friends_or_pending[random_number]
+      Request.create!(
+        user: user,
+        requested_friend: potential_friend,
+        created_at: date,
+        updated_at: date
+      )
+    end
+  end
 
   # CREATING COMMENTS AND LIKES
 
