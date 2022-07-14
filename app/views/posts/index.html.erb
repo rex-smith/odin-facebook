@@ -7,11 +7,6 @@
     <% else %>
       <h2>Your Feed</h2>
     <% end %>
-    <div id="posts">
-      <% @posts.each do |post| %>
-        <% @post = post %>
-        <%= render @post %>
-      <% end %>
-    </div>
+    <%= render "posts" %>
   </div>
 </div>

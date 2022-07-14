@@ -36,5 +36,10 @@
         <%= link_to "Edit", edit_user_path(@user), class: 'btn btn-primary' %>
       </div>
     <% end %>
+    <% if current_user.friend?(@user) || @user == current_user %>
+      <h1 class="bg-primary text-white rounded p-2">Posts</h1>
+      <% @posts = @user.posts %>
+      <%= render "posts/posts" %>
+    <% end %>
   </div>
 </div>
