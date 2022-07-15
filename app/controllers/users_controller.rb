@@ -39,6 +39,9 @@ class UsersController < ApplicationController
 
   def people
     @user = current_user
+    @old_requests = current_user.old_requests
+    @new_requests = current_user.new_requests
+    current_user.update(notification_view: DateTime.now)
   end
 
   private

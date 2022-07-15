@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-between border border-light rounded shadow-sm align-items-center mb-1">
+  <%= render '/users/person', person: User.find(request.user_id) %>
+  <div class="mx-3">
+    <%= button_to 'Accept', confirm_request_path(request), method: :post, params: { friendship: { friend_id: request.user_id } }, class: 'btn btn-success mb-1' %> 
+    <%= button_to 'Decline', delete_request_path(request), method: :delete, class: 'btn btn-danger' %>
+  </div>
+</div>

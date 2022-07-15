@@ -9,13 +9,14 @@ Rails.application.routes.draw do
 
   resources :users do 
     resources :posts, only: [:index]
+    # resources :requests, only: [:index]
   end
 
   resources :comments, only: [:new, :create, :destroy]
   resources :posts, except: [:edit, :update]
   resources :likes, only: [:create, :destroy] 
   resources :friendships, only: [:index, :create, :destroy]
-  resources :requests, only: :create do
+  resources :requests, only: [:create, :index] do
     member do
       post 'confirm'
       delete 'delete'

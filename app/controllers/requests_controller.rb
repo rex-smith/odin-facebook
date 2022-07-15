@@ -1,5 +1,20 @@
 class RequestsController < ApplicationController
-  before_action :set_friend_request, except: :create
+  before_action :set_friend_request, except: [:create, :index]
+
+  def index
+    # if params[:user_id]
+    #   @requests = User.find_by_id(params[:user_id]).inbound_requests
+    #   @new_requests = User.find_by_id(params[:user_id]).new_requests
+    #   @old_requests = User.find_by_id(params[:user_id]).old_requests
+    # else
+    #   @requests = Request.all.order('created_at DESC')
+    # end
+
+    @requests = current_user.inbound_requests
+    @new_requests = current_user.new_requests
+    @old_requests = current_user.old_requests
+    current_user.update(notification_view: DateTime.now)
+  end
 
   def create
     @request = current_user.requests.build(request_params)

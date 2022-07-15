@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
 
+  validates :body, :title, presence: true
+
   def liked?(user)
     likes.each do |like|
       if like.user_id == user.id

@@ -1,0 +1,17 @@
+<h2 class="bg-primary text-white rounded p-1">New Requests Received</h2>
+<% if @new_requests.any? %>
+  <% @new_requests.each do |request| %>
+    <%= render '/requests/request', request: request %>
+  <% end %>
+<% else %>
+  <p class="subtitle">None</p>
+<% end %>
+
+<h2 class="bg-primary text-white rounded p-1">Old Requests Received</h2>
+<% if @old_requests.any? %>
+  <% @old_requests.each do |request| %>
+    <%= render '/requests/request', request: request %>
+  <% end %>
+<% else %>
+  <p class="subtitle">None</p>
+<% end %>

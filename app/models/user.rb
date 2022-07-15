@@ -14,15 +14,18 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  validates :first_name, :last_name, :email, presence: true
+
+  before_create do
+    self.notification_view = DateTime.now
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name.split.first
       user.last_name = auth.info.name.split.last
-      # If you are using confirmable and the provider(s) you use validate emails, 
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
     end
   end
 
@@ -67,5 +70,14 @@ class User < ApplicationRecord
     !friend?(user) && !requested_friend?(user) && !requesting_friend?(user)
   end
 
+  # Request Notifications and separation by seen and unseen
+  
+  def new_requests
+    inbound_requests.select { |request| request.created_at > notification_view }
+  end
+
+  def old_requests
+    inbound_requests.select { |request| request.created_at <= notification_view }
+  end
 
 end

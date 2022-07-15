@@ -3,6 +3,8 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   has_many :likes, as: :likeable
 
+  validates :body, presence: true
+
   def liked?(user)
     likes.each do |like|
       if like.user_id == user.id
