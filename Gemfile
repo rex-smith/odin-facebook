@@ -45,6 +45,9 @@ gem 'omniauth-rails_csrf_protection'
 # Omniauth for Facebook
 gem 'omniauth-facebook'
 
+# Omniauth for Google
+gem 'omniauth-google-oauth2'
+
 # Fix CORS errors
 gem 'rack-cors'
 
