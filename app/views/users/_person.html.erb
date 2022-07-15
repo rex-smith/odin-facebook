@@ -1,5 +1,9 @@
 <div class="p-2">
   <div class="h4 text-primary"><%= link_to person.full_name, user_path(person), class: "text-decoration-none" %></div>
-  <div class="h6 text-muted"><%= person.gender %></div>
-  <div class="h6 text-muted"><%= person.age %></div>
+  <% if person.gender %>
+    <div class="h6 text-muted"><%= person.gender %></div>
+  <% end %>
+  <% if person.birthdate %>
+    <div class="h6 text-muted"><%= person.age %></div>
+  <% end %>
 </div>
