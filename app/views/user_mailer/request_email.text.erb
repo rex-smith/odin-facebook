@@ -1,0 +1,10 @@
+You received a friend request from <%= @requester.full_name %>!
+===============================================
+
+A little about them:
+  - Age: <%= @requester.birthdate.nil? ? 'N/A' : @requester.age %>
+  - Gender: <%= @requester.gender.nil? ? 'N/A' : @requester.gender %>
+
+To respond to their friend request, just follow this link: <%= @url %>.
+
+Have a great day!

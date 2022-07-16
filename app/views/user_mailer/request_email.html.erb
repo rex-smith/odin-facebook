@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You received a friend request from <%= @requester.full_name %>!</h1>
+    <p>A little about them:</p>
+    <ul>
+      <li>Age: <%= @requester.birthdate.nil? ? 'N/A' : @requester.age %></li>
+      <li>Gender: <%= @requester.gender.nil? ? 'N/A' : @requester.gender %></li>
+    </ul>
+    <p>
+      To respond to their friend request, just follow this link: <%= @url %>.
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

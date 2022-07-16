@@ -51,6 +51,9 @@ gem 'omniauth-google-oauth2'
 # Fix CORS errors
 gem 'rack-cors'
 
+# Letter Opener for Mailer Preview
+gem "letter_opener", group: :development
+
 # Figaro
 gem 'figaro'
 

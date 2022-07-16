@@ -19,6 +19,8 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.build(request_params)
     if @request.save
+      send_request_email
+      # UserMailer.with(request: @request).request_email.deliver_now
       flash[:notice] = "Friend request sent"
       redirect_to people_path
       # May need to redirect to creating an invitation here
