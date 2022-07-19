@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
     UserMailer.with(request: @request).request_email.deliver_now
   end
 
+  def ensure_avatar
+    @user.set_avatar_default unless @user.avatar.attached?
+  end
+
   protected
 
   def configure_permitted_parameters
