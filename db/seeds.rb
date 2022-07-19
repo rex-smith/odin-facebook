@@ -137,6 +137,11 @@ ActiveRecord::Base.transaction do
     end
   end
 
+
+
 end
 
+@users.each do |user|
+  user.ensure_avatar
+end
 

@@ -14,7 +14,12 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  has_one_attached :avatar
+
   validates :first_name, :last_name, :email, presence: true
+  validate :acceptable_avatar_size?
+  validate :acceptable_avatar_type?
+  # validates :avatar, content_type: [:png, :jpg, :jpeg]
 
   before_create do
     self.notification_view = DateTime.now
@@ -26,6 +31,11 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name.split.first
       user.last_name = auth.info.name.split.last
+      if auth.info.image
+        downloaded_image = URI.open(auth.info.image)
+        user.avatar.attach(io: downloaded_image, file_name: "image-#{Time.now.strftime("%s%L")}",
+                           content_type: downloaded_image.content_type)
+      end
     end
   end
 
@@ -78,6 +88,36 @@ class User < ApplicationRecord
 
   def old_requests
     inbound_requests.select { |request| request.created_at <= notification_view }
+  end
+
+  # Profile Picture
+
+  def ensure_avatar
+    set_avatar_default unless avatar.attached?
+  end
+
+  def set_avatar_default
+    filename = 'default_avatar.png'
+    filepath = Rails.root.join("app/assets/images", filename)
+    File.open(filepath) do |io|
+      self.avatar.attach(io: io, filename: filename, content_type: 'image/png')
+    end
+    save!
+  end
+
+
+  def acceptable_avatar_size?
+    return unless avatar.attached?
+    return unless avatar.byte_size > 1.megabyte
+    errors.add :avatar, "is over 1MB"
+  end
+
+  
+
+  def acceptable_avatar_type?
+    return unless avatar.attached?
+    return if avatar.content_type.in? ["image/png", "image/jpeg"]
+    errors.add :avatar, "must be a PNG or JPG"
   end
 
 end

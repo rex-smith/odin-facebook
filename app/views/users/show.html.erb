@@ -6,6 +6,9 @@
       <h1 class="bg-primary text-white rounded p-2">Profile Information</h1>
     <% end %>
     <div class="mb-3">
+      <%= avatar_thumbnail_lg(@user) %>
+    </div>
+    <div class="mb-3">
       <h4>First Name</h4>
       <%= @user.first_name %>
     </div>

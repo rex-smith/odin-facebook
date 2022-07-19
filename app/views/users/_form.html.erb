@@ -4,6 +4,15 @@
     <%= form_with model: @user do |form| %>
       <div class="row">
         <div class="col mb-3">
+        <%= avatar(@user) %>
+        </div>
+        <div class="col mb-3">
+          <%= form.label :avatar, "Profile Picture", class: 'form-label' %>
+          <%= form.file_field :avatar, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
           <%= form.label :first_name, "First Name", class: 'form-label' %>
           <%= form.text_field :first_name, class: 'form-control' %>
         </div>
