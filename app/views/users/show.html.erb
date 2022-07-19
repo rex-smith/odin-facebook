@@ -5,47 +5,53 @@
     <% else %>
       <h1 class="bg-primary text-white rounded p-2">Profile Information</h1>
     <% end %>
-    <div class="mb-3">
-      <%= avatar_thumbnail_lg(@user) %>
-    </div>
-    <div class="mb-3">
-      <h4>First Name</h4>
-      <%= @user.first_name %>
-    </div>
-    <div class="mb-3">
-      <h4>Last Name</h4>
-      <%= @user.last_name %>
-    </div>
-    <% if current_user.friend?(@user) || @user == current_user %>
-      <div class="mb-3">
-        <h4>Email</h4>
-        <%= @user.email %>
+    <div class="row">
+      <div class="col mb-3">
+        <div class="mb-3" style="width: 200px; height: 200px;">
+          <%= avatar(@user) %>
+        </div>
+        <div class="">
+          <h4>First Name</h4>
+          <%= @user.first_name %>
+        </div>
+        <div class="">
+          <h4>Last Name</h4>
+          <%= @user.last_name %>
+        </div>
       </div>
-      <div class="mb-3">
-        <h4>Birthdate</h4>
-        <% if @user.birthdate %>
-          <%= @user.birthdate.strftime("%B %e, %Y") %>
-        <% else %>
-          <p>N/A</p>
+      <div class="col">
+        <% if current_user.friend?(@user) || @user == current_user %>
+          <div class="mb-3">
+            <h4>Email</h4>
+            <%= @user.email %>
+          </div>
+          <div class="mb-3">
+            <h4>Birthdate</h4>
+            <% if @user.birthdate %>
+              <%= @user.birthdate.strftime("%B %e, %Y") %>
+            <% else %>
+              <p>N/A</p>
+            <% end %>
+          </div>
+          <div class="mb-3">
+            <h4>Gender</h4>
+            <% if @user.gender %>
+              <%= @user.gender %>
+            <% else %>
+              <p>N/A</p>
+            <% end %>
+          </div>
+          <div class="mb-3">
+            <h4>Phone Number</h4>
+            <% if @user.phone_number %>
+              <%= number_to_phone(@user.phone_number) %>
+            <% else %>
+              <p>N/A</p>
+            <% end %>
+          </div>
         <% end %>
       </div>
-      <div class="mb-3">
-        <h4>Gender</h4>
-        <% if @user.gender %>
-          <%= @user.gender %>
-        <% else %>
-          <p>N/A</p>
-        <% end %>
-      </div>
-      <div class="mb-3">
-        <h4>Phone Number</h4>
-        <% if @user.phone_number %>
-          <%= number_to_phone(@user.phone_number) %>
-        <% else %>
-          <p>N/A</p>
-        <% end %>
-      </div>
-    <% end %>
+    </div>
     <% if @user == current_user %>
       <div class="mb-3">
         <%= link_to "Edit", edit_user_path(@user), class: 'btn btn-primary' %>

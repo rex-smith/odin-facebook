@@ -19,7 +19,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, presence: true
   validate :acceptable_avatar_size?
   validate :acceptable_avatar_type?
-  # validates :avatar, content_type: [:png, :jpg, :jpeg]
 
   before_create do
     self.notification_view = DateTime.now
@@ -105,14 +104,11 @@ class User < ApplicationRecord
     save!
   end
 
-
   def acceptable_avatar_size?
     return unless avatar.attached?
-    return unless avatar.byte_size > 1.megabyte
-    errors.add :avatar, "is over 1MB"
+    return unless avatar.byte_size > 10.megabyte
+    errors.add :avatar, "is over 10MB"
   end
-
-  
 
   def acceptable_avatar_type?
     return unless avatar.attached?
