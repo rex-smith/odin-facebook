@@ -11,6 +11,13 @@
     </div>
   </div>
   <div class="card-body">
+    <% if @post.photo.attached? %>
+      <div class="row">
+        <div class="col mb-3">
+          <%= photo_post_size(@post.photo) %>
+        </div>
+      </div>
+    <% end %>
     <%= @post.body %>
   </div>
 

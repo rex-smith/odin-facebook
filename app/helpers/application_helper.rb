@@ -22,4 +22,8 @@ module ApplicationHelper
       image_tag user.avatar.variant(resize_to_fill: [200, 200]), class: "rounded img-thumbnail"
     end
   end
+
+  def photo_post_size(photo)
+    image_tag photo.variant(resize_to_fill: [400, 400]), class: "rounded img-fluid d-block mx-auto"
+  end
 end

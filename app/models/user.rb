@@ -91,10 +91,6 @@ class User < ApplicationRecord
 
   # Profile Picture
 
-  def ensure_avatar
-    set_avatar_default unless avatar.attached?
-  end
-
   def set_avatar_default
     filename = 'default_avatar.png'
     filepath = Rails.root.join("app/assets/images", filename)

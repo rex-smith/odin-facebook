@@ -7,8 +7,7 @@ class PostsController < ApplicationController
       @posts = User.find_by_id(params[:user_id]).posts.order('created_at DESC')
     else
       # Filter to only see friends' posts
-      @posts = []
-      current_user.friends.each { |friend| friend.posts.order('created_at DESC').each { |post| @posts << post } }
+      @posts = Post.where('user_id IN (?) OR user_id = ?', current_user.friends.to_a, current_user).order('created_at DESC')
     end
   end
 
@@ -18,15 +17,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-
-    respond_to do |format|
-      if @post.save
-        # flash[:notice] = "Post successfully created."
-        format.turbo_stream
-      else
-        flash[:alert] = 'Something went wrong.'
-        render :new
-      end
+    if @post.save
+      flash[:notice] = "Post successfully created."
+      redirect_to root_path
+    else
+      flash[:alert] = 'Something went wrong.'
+      render :new
     end
   end
 
@@ -48,7 +44,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :user_id)
+    params.require(:post).permit(:title, :body, :user_id, :photo)
   end
 
 end
